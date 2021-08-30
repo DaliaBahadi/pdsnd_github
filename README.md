@@ -7,7 +7,7 @@
 Explore US Bikeshare Data
 
 ### Description
-Describe what your project is about and what it does
+The project is a python based application that lets the user explore the US Bikeshare data. 
 
 ### Files used
 Include the files used
