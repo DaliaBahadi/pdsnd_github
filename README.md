@@ -10,9 +10,9 @@ Explore US Bikeshare Data
 The project is a python based application that lets the user explore the US Bikeshare data.
 
 ### Files used
-*chicago.csv
-*new_york_city.csv
-*washington.csv
+* chicago.csv
+* new_york_city.csv
+* washington.csv
 
 ### Credits
 There are no outside resources used.
