@@ -20,7 +20,7 @@ def get_filters():
 
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
 
-    
+
 
     #Creting a while loop to handel invalid inputs.
     while True:
@@ -134,26 +134,20 @@ def time_stats(df):
     start_time = time.time()
 
 
-    # find the most commen month
-    common_month = df['month'].mode()[0]
 
     # display the most common month
-    print('\nMost Common month:', common_month)
+    print('\nMost Common month:', df['month'].mode()[0])
 
-    # find the most commen day of week
-    commen_day = df['day_of_week'].mode()[0]
 
     # display the most common day of week
-    print('\n\nMost Commen Day Of The Week:', commen_day)
+    print('\n\nMost Commen Day Of The Week:', df['day_of_week'].mode()[0])
 
     # extract hour from the Start Time column to create an hour column
     df['hour'] = df['Start Time'].dt.hour
 
-    # find the most popular hour
-    commen_hour = df['hour'].mode()[0]
 
     # display the most common start hour
-    print('\n\nMost Commen Start Hour:', commen_hour)
+    print('\n\nMost Commen Start Hour:', df['hour'].mode()[0])
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
