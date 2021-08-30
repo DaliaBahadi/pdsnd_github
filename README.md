@@ -15,4 +15,4 @@ The project is a python based application that lets the user explore the US Bike
 * washington.csv
 
 ### Credits
-There are no outside resources used.
+There are no outside resources used in this project.
