@@ -17,70 +17,67 @@ def get_filters():
     """
     #Welcome message
     print('Hello! Let\'s explore some US bikeshare data!\n')
-    
+
     # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
 
-    #Intialize variables
-    city = ''
-    month = ''
-    day = ''
-    
+
+
     #Creting a while loop to handel invalid inputs.
     while True:
-        
+
         #Asking the user to input the city they want to perform analysis on
         city = input('Would you like to see data for Chicago, New york, or Washington?\n(Pleas write the city names as they are written in the qustion)\n').lower()
 
         #Create a cindition statment to check if the user input is correct
         if city in CITY_DATA:
-            
+
             break
-            
+
         #Error massege tha appears when the user enter inccorrect value
         else:
             print('You have interd an invalid input please check your previous input and try again!\n')
 
 
     # get user input for month (all, january, february, ... , june)
-    
+
     #Create a list to store the months
     months = ['January', 'February','March', 'April',
                 'May','June', 'all']
 
     #Creting a while loop to handel invalid inputs.
     while True:
-        
+
         #Ask the user whethere they want to filter by a specific month or all
         month = input('\nWould you like to filter by a specific month (from the first six months only) or all?\nIf by a specifc month write the name of the month,else write "all"\n')
 
         #Create a cindition statment to check if the user input is correct
 
         if month in months:
-        
+
             break
-            
+
         #Error massege tha appears when the user enter inccorrect value
         else:
             print('You have interd an invalid input please check your previous input and try again!\n')
-  
+
 
     #get user input for day of week (all, monday, tuesday, ... sunday)
-        
+
     #Create a list to store the days of the week
     week_days = ['Sunday', 'Monday','Tuesday', 'Wednesday',
                  'Thursday', 'Friday', 'Saturday', 'all']
 
     #Creting a while loop to handel invalid inputs.
     while True:
-            
+
         #Asking the user to input the day they want to perform analysis on
         day = input('\nWould you like to filter by a specific day or all?\nIf by a specifc day write the name of the day,else write "all"\n')
 
         # Create a cindition statment to check if the user input is correct
         if day in week_days:
-            
+
                 break
-                
+
         #Error massege tha appears when the user enter inccorrect value
         else:
             print('You have interd an invalid input please check your previous input and try again!\n')
@@ -110,7 +107,7 @@ def load_data(city, month, day):
 
     # extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
-    
+
     df['day_of_week'] = df['Start Time'].dt.weekday_name
 
     # filter by month if applicable
@@ -126,7 +123,7 @@ def load_data(city, month, day):
     if day != 'all':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'] == day.title()]
-        
+
     return df
 
 
@@ -137,26 +134,20 @@ def time_stats(df):
     start_time = time.time()
 
 
-    # find the most commen month
-    common_month = df['month'].mode()[0]
 
     # display the most common month
-    print('\nMost Common month:', common_month)
+    print('\nMost Common month:', df['month'].mode()[0])
 
-    # find the most commen day of week
-    commen_day = df['day_of_week'].mode()[0]
 
     # display the most common day of week
-    print('\n\nMost Commen Day Of The Week:', commen_day)
+    print('\n\nMost Commen Day Of The Week:', df['day_of_week'].mode()[0])
 
     # extract hour from the Start Time column to create an hour column
     df['hour'] = df['Start Time'].dt.hour
 
-    # find the most popular hour
-    commen_hour = df['hour'].mode()[0]
 
     # display the most common start hour
-    print('\n\nMost Commen Start Hour:', commen_hour)
+    print('\n\nMost Commen Start Hour:', df['hour'].mode()[0])
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -169,22 +160,18 @@ def station_stats(df):
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
-    # find the most commonly used start station
-    common_start_station = df['Start Station'].mode()[0]
 
     # display most commonly used start station
-    print('\nMost Common Start Station:', common_start_station)
+    print('\nMost Common Start Station:', df['Start Station'].mode()[0])
 
-    # find the most commonly used end station
-    common_end_station = df['End Station'].mode()[0]
 
     # display most commonly used end station
-    print('\n\nMost Common End Station:', common_end_station)
+    print('\n\nMost Common End Station:', df['End Station'].mode()[0])
 
     # find the most frequent combination of start station and end station trip
     common_stations = ('\n Start Station: '+df['Start Station']+'\n End Station: '+ df['End Station']).mode()[0]
 
-    # display most 
+    # display most
     print('\n\nMost Frequent Combination Of Start And End Station Trip:-', common_stations)
 
 
@@ -200,13 +187,13 @@ def trip_duration_stats(df):
 
     # calculate total travel time
     total_travel_time = df['Trip Duration'].sum()
-    
+
     # display total travel time
     print('\nTotal Time Travel In Seconds:', total_travel_time )
-    
+
     # calculate mean travel time
     mean_travel_time = df['Trip Duration'].mean()
-    
+
     # display mean travel time
     print('\nMean Travel Time:', mean_travel_time )
 
@@ -223,28 +210,28 @@ def user_stats(df,city):
 
     # Calculate the counts of each user type
     users_count = df['User Type'].value_counts().to_string()
-    
+
     # Display counts of user types
     print('\nCount Of Each User Type:\n',users_count)
-    
+
 
     #Condition staments to only display the gender information if the cities are Chicago and New York.
 
     if city != 'washington':
-        
+
         # Calculate counts of gender
         gender_count = df['Gender'].value_counts().to_string()
-        
+
         # Display counts of gender
         print('\nCount Of Each Gender:\n',gender_count)
-        
+
         # Calculate the earliest, most recent, and most common year of birth
         earliest_birth_year = df['Birth Year'].min()
-        
+
         recent_birth_year = df['Birth Year'].max()
 
-        common_birth_year = df['Birth Year'].mode()[0] 
-   
+        common_birth_year = df['Birth Year'].mode()[0]
+
         # Display earliest, most recent, and most common year of birth
         print('\nEarliest Year Of Birth:',earliest_birth_year)
 
@@ -277,12 +264,12 @@ def main():
         #intialiaze variable that acts as a counter to show raw data
 
         rawdata_counter = 5
-        
+
         while True:
-        
+
             if rawdata_input != 'yes':
                 break
-            
+
             elif rawdata_input == 'yes':
                 print(df.head(rawdata_counter))
 
@@ -296,7 +283,7 @@ def main():
                     rawdata_counter += 5
 
                     print(df.head(rawdata_counter))
-                    
+
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
